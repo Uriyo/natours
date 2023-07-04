@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    block head
+      meta(charset='UTF-8')
+      //- meta(http-equiv='Content-Security-Policy' content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:")
+      meta(name='viewport' content='width=device-width, initial-scale=1.0')
+      link(rel='stylesheet' href='/css/style.css')
+      link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
+      link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+      title Natours | #{title}
+      //- script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/esm/axios.min.js')
+      
+  body
+    // HEADER
+    include _header
+        
+    // CONTENT
+    block content
+      h1 This is a placeholder heading
+      
+    // FOOTER
+    include _footer
+    //- script('Content-Security-Policy', 'script-src cdnjs.cloudflare.com')
+    //- script(src= 'https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js',nonce=nonce)   
+    //- //- The HTTP Content-Security-Policy (CSP) script-src directive specifies valid sources for JavaScript. This includes not only URLs loaded directly into <script> elements, but also things like inline script event handlers (onclick) and XSLT stylesheets which can trigger script execution.
+    //- script(src='/js/login.js', nonce=nonce)
+    script(src='/js/bundle.js')

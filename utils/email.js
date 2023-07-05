@@ -8,23 +8,23 @@ module.exports=class Email{
         this.to=user.email;
         this.firstName=user.name.split(' ')[0];
         this.url=url;
-        this.from=process.env.EMAIL_FROM;
+        this.from=`Kushagra Gangwar <${process.env.EMAIL_FROM}>`;
     }
      
   newTransport(){
         if(process.env.NODE_ENV ==='production'){
-            // Sendgrid
-            // console.log( process.env.SENDGRID_USERNAME);
-            // console.log( process.env.SENDGRID_PASSWORD);
-            return nodemailer.createTransport({
-                service: 'SendGrid',
-                // host: 'smtp.sendgrid.net',
-                // port: 587,
-                auth:{
-                    user: process.env.SENDGRID_USERNAME,
-                    pass: process.env.SENDGRID_PASSWORD
+            // // Sendgrid
+              console.log( process.env.SENDGRID_USERNAME);
+              console.log( process.env.SENDGRID_PASSWORD);
+             return nodemailer.createTransport({
+                 service: 'SendGrid',
+            //     // host: 'smtp.sendgrid.net',
+            //     // port: 587,
+                 auth:{
+                     user: process.env.SENDGRID_USERNAME,
+                     pass: process.env.SENDGRID_PASSWORD
                 }
-            }); 
+             }); 
         }
         
         return nodemailer.createTransport({
@@ -53,9 +53,9 @@ module.exports=class Email{
             to: this.to,
             subject,
             html, 
-            text: htmlToText.fromString(html)
-            //html:
+            text: htmlToText.fromString(html),
         };
+
         //3create a transport and send email
         try{
         await this.newTransport().sendMail(mailOptions);

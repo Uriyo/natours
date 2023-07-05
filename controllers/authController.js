@@ -109,7 +109,7 @@ exports.protect=catchAsync(async(req,res,next)=>{
     //validate token or verify token
     
     const decoded= await promisify (jwt.verify)(token,process.env.JWT_SECRET);
-    console.log(decoded);
+    // console.log(decoded);
     
     
     //check if user still exists
@@ -202,7 +202,7 @@ const resetToken=user.createPasswordResetToken();
     try{  
         const resetURL= 
         `${req.protocol}://${req.get('host')}
-        /api/vi/users/resetPassword/${resetToken}`;
+        /api/v1/users/resetPassword/${resetToken}`;
 
         await new Email(user,resetURL).sendPasswordReset();
          res.status(200).json({

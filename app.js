@@ -9,6 +9,7 @@ const xss=require('xss-clean');
 const hpp=require('hpp');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
+const compression=require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -17,6 +18,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter=require('./routes/reviewRoutes');
  //const bookingRouter=require('./routes/bookingRoutes');
 const viewRouter=require('./routes/viewRoutes');
+
 
 //Start express app
 const app = express();
@@ -74,7 +76,10 @@ app.use(hpp({
   })
 );
 
- 
+
+
+app.use(compression());
+
 //Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();

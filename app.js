@@ -16,16 +16,16 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes'); 
 const reviewRouter=require('./routes/reviewRoutes');
- //const bookingRouter=require('./routes/bookingRoutes');
+const bookingRouter=require('./routes/bookingRoutes');
 const viewRouter=require('./routes/viewRoutes');
-
+const csp=require('express-csp');
 
 //Start express app
 const app = express();
 app.use(
-  cors({ 
-  origin: "*",
-}));
+  cors(
+  // origin: "*",
+));
 // app.use(function(req, res, next) { res.setHeader( 'Content-Security-Policy', "script-src 'self' cdnjs.cloudflare.com" ); return next(); });
 app.set('view engine','pug');
 app.set('views',path.join(__dirname,'views'));
@@ -34,7 +34,8 @@ app.set('views',path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public')));
 
 //set security HTTP headers
-app.use(helmet())
+app.use(helmet());
+
 
 //development logging
 if (process.env.NODE_ENV === 'development') {
@@ -89,7 +90,8 @@ app.use((req, res, next) => {
   // req.cookies.password=req.body.password;
   // req.cookies.name="anm";
   // console.log(req.cookies);
-  res.setHeader( 'Content-Security-Policy', "script-src 'self' cdnjs.cloudflare.com  ");
+  res.setHeader( 'Content-Security-Policy', "script-src 'self'  cdnjs.cloudflare.com  js.stripe.com ");
+  res.setHeader('Cross-Origin-Embedder-Policy', 'cross-origin');
   res.setHeader('Cross-Origin-Opener-Policy', 'cross-origin');
   // res.setHeader("Access-Control-Allow-Origin", "https://js.stripe.com/v3/");
   // res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
@@ -106,7 +108,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
- //app.use('/api/v1/booking', bookingRouter);
+app.use('/api/v1/booking', bookingRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

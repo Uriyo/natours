@@ -5,7 +5,8 @@ block append head
   //- script(src='/public/js/mapbox.js')
   //- link(href='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet')
   //- meta(http-equiv="Content-Security-Policy" content="script-src 'self' cdnjs.cloudflare.com js.stripe.com;")
-  //- script(src="http://js.stripe.com/v3/")
+  script(type="text/javascript" src="https://js.stripe.com/v3/")
+
 mixin reviewCard(review)
   .reviews__card
     .reviews__avatar
